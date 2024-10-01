@@ -1,8 +1,10 @@
-<h2>{{ raceModel.name }}</h2>
-@for (pony of raceModel.ponies; track pony?.id) {
-  <ul>
-    <li>
-      {{ pony?.name }}
-    </li>
-  </ul>
-}
+<div>
+  <h2>{{ raceModel.name }}</h2>
+  <div class="row">
+    @for (pony of raceModel.ponies; track pony.id) {
+      <div class="col-sm-2">
+        <pr-pony [ponyModel]="pony" />
+      </div>
+    }
+  </div>
+</div>
