@@ -1,15 +1,19 @@
 {
     "pack": "74",
-    "id": 6,
-    "title": "Using pipes",
+    "id": 7,
+    "title": "Custom pipe with date-fns",
     "specs": [
         {
+            "name": "src/app/from-now.pipe.spec.ts",
+            "hash": "8abe6f02952695d91b03be54f70988c9398280197b16fe653c7308a6adc93bea"
+        },
+        {
             "name": "src/app/race/race.component.spec.ts",
-            "hash": "9950a53f6c891c116b8dec03d316da423a4b0f13c2a148f95f16f267afee0823"
+            "hash": "419d24f55abea965d85aeee1cc275ffe01d051ae423126bad4e8f2a556e0f2ed"
         },
         {
             "name": "cypress/e2e/home.cy.ts",
-            "hash": "2e8d32557486f534c1317ac344f93a2350ff89b73ee7817f92626f0d08bd3a89"
+            "hash": "34a01d0d417f34636c40acf9b537a871f7c38ce6ab5b0d2b175ee874a4d36b72"
         }
     ]
 }

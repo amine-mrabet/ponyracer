@@ -1,6 +1,6 @@
 <div>
   <h2>{{ raceModel.name }}</h2>
-  <p>{{ raceModel.startInstant | date: 'M/d/yy, h:mm a' }}</p>
+  <p>{{ raceModel.startInstant | fromNow }}</p>
   <div class="row">
     @for (pony of raceModel.ponies; track pony.id) {
       <div class="col-sm-2">

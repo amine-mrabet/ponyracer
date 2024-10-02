@@ -44,3 +44,4 @@ results/cypress-results.json
 results/karma-results.json
 results/lint-results.json
 results/mochawesome/mochawesome.json
+/package-lock.json
