@@ -14,6 +14,6 @@ export class RacesComponent implements OnInit {
   races!: RaceModel[];
   service = inject(RaceService);
   ngOnInit(): void {
-    this.races = this.service.list();
+    this.service.list().subscribe(races => (this.races = races));
   }
 }
