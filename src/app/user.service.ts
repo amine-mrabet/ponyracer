@@ -13,4 +13,9 @@ export class UserService {
   authenticate(login: string, password: string): Observable<UserModel> {
     return this.http.post<UserModel>('https://ponyracer.ninja-squad.com/api/users/authentication', { login, password });
   }
+
+  register(login: string, password: string, birthYear: number): Observable<UserModel> {
+    const body = { login, password, birthYear };
+    return this.http.post<UserModel>('https://ponyracer.ninja-squad.com/api/users', body);
+  }
 }
