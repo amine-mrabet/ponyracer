@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { UserService } from '../user.service';
+import { DecimalPipe } from '@angular/common';
+import { UserModel } from '../models/user.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'pr-menu',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, DecimalPipe],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
+  userService = inject(UserService);
   navbarCollapsed: boolean = true;
+  user: UserModel | null = null;
+  constructor() {
+    this.userService.userEvents.pipe(takeUntilDestroyed()).subscribe(user => (this.user = user));
+  }
   toggleNavbar() {
     this.navbarCollapsed = !this.navbarCollapsed;
   }

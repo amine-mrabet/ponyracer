@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { UserModel } from './models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor() {}
   http = inject(HttpClient);
-
+  userEvents = new Subject<UserModel>();
   authenticate(login: string, password: string): Observable<UserModel> {
-    return this.http.post<UserModel>('https://ponyracer.ninja-squad.com/api/users/authentication', { login, password });
+    return this.http
+      .post<UserModel>('https://ponyracer.ninja-squad.com/api/users/authentication', { login, password })
+      .pipe(tap((user: UserModel) => this.userEvents.next(user)));
   }
 
   register(login: string, password: string, birthYear: number): Observable<UserModel> {
