@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2024-10-07T16:35:15.413Z",
-    "end": "2024-10-07T16:35:20.101Z",
-    "duration": 4688,
+    "start": "2024-10-08T10:04:27.906Z",
+    "end": "2024-10-08T10:04:33.617Z",
+    "duration": 5711,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "70f5257b-ae7b-46d5-8b37-380d94f14f72",
+      "uuid": "3d0f7b5c-9b29-4349-8e43-902a217d2952",
       "title": "",
       "fullFile": "cypress\\e2e\\register.cy.ts",
       "file": "cypress\\e2e\\register.cy.ts",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "79aed7f4-e5e2-4ad2-b243-0cb59a7def77",
+          "uuid": "6ea377d3-8856-433f-af65-3698cd2ab137",
           "title": "Register",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,29 @@
               "title": "should display a register page",
               "fullTitle": "Register should display a register page",
               "timedOut": null,
-              "duration": 4499,
+              "duration": 5424,
               "state": "passed",
-              "speed": "fast",
+              "speed": "medium",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "cy.visit('/register');\nconst loginInput = () => cy.get('input').first();\nconst passwordInput = () => cy.get('input[type=password]').first();\nconst confirmInput = () => cy.get('input[type=password]').eq(1);\nconst birthYearInput = () => cy.get('input[type=number]');\ncy.get('button').should('be.visible').and('be.disabled');\nloginInput().type('c');\nloginInput().clear();\ncy.get('#login-required-error').should('be.visible').and('contain', 'Login is required');\nloginInput().type('ced');\ncy.get('#login-required-error').should('not.exist');\npasswordInput().type('p');\npasswordInput().clear();\ncy.get('#password-required-error').should('be.visible').and('contain', 'Password is required');\npasswordInput().type('pa');\ncy.get('#password-required-error').should('not.exist');\nconfirmInput().type('p');\nconfirmInput().clear();\ncy.get('#confirm-password-required-error').should('be.visible').and('contain', 'Password confirmation is required');\nconfirmInput().type('p');\ncy.get('#password-matching-error').should('be.visible').and('contain', 'Your password does not match');\nconfirmInput().type('a');\ncy.get('#password-matching-error').should('not.exist');\nbirthYearInput().type('1');\nbirthYearInput().clear();\ncy.get('#birth-year-required-error').should('be.visible').and('contain', 'Birth year is required');\nbirthYearInput().type(`${new Date().getFullYear() + 1}`);\ncy.get('#birth-year-invalid-error').should('be.visible').and('contain', 'This is not a valid year');\nbirthYearInput().clear();\nbirthYearInput().type('1986');\ncy.get('#birth-year-invalid-error').should('not.exist');\ncy.get('form > button').click();\ncy.wait('@registerUser');\ncy.location('pathname').should('eq', '/');",
+              "code": "cy.visit('/register');\nconst loginInput = () => cy.get('input').first();\nconst passwordInput = () => cy.get('input[type=password]').first();\nconst confirmInput = () => cy.get('input[type=password]').eq(1);\nconst birthYearInput = () => cy.get('input[type=number]');\ncy.get('button').should('be.visible').and('be.disabled');\nloginInput().type('c');\nloginInput().clear();\ncy.get('#login-required-error').should('be.visible').and('contain', 'Login is required');\nloginInput().type('ced');\ncy.get('#login-required-error').should('not.exist');\npasswordInput().type('p');\npasswordInput().clear();\ncy.get('#password-required-error').should('be.visible').and('contain', 'Password is required');\npasswordInput().type('pa');\ncy.get('#password-required-error').should('not.exist');\nconfirmInput().type('p');\nconfirmInput().clear();\ncy.get('#confirm-password-required-error').should('be.visible').and('contain', 'Password confirmation is required');\nconfirmInput().type('p');\ncy.get('#password-matching-error').should('be.visible').and('contain', 'Your password does not match');\nconfirmInput().type('a');\ncy.get('#password-matching-error').should('not.exist');\nbirthYearInput().type('1');\nbirthYearInput().clear();\ncy.get('#birth-year-required-error').should('be.visible').and('contain', 'Birth year is required');\nbirthYearInput().type(`${new Date().getFullYear() + 1}`);\ncy.get('#birth-year-invalid-error').should('be.visible').and('contain', 'This is not a valid year');\nbirthYearInput().clear();\nbirthYearInput().type('86');\ncy.get('#birth-year-invalid-error').should('not.exist');\ncy.get('.formatted-year').should('contain', '1986');\ncy.get('form > button').click();\ncy.wait('@registerUser');\ncy.location('pathname').should('eq', '/');",
               "err": {},
-              "uuid": "027e9e2e-5855-4955-8dae-c59aa01222a5",
-              "parentUUID": "79aed7f4-e5e2-4ad2-b243-0cb59a7def77",
+              "uuid": "b63a7ee4-d8e9-4695-9a4c-d4dfc6586412",
+              "parentUUID": "6ea377d3-8856-433f-af65-3698cd2ab137",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "027e9e2e-5855-4955-8dae-c59aa01222a5"
+            "b63a7ee4-d8e9-4695-9a4c-d4dfc6586412"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 4499,
+          "duration": 5424,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

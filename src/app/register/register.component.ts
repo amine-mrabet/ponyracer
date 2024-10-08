@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { AbstractControl, NonNullableFormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { BirthYearInputComponent } from '../birth-year-input/birth-year-input.component';
 
 @Component({
   selector: 'pr-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, BirthYearInputComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
