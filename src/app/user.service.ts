@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { UserModel } from './models/user.model';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { UserModel } from './models/user.model';
 })
 export class UserService {
   http = inject(HttpClient);
-  userEvents = new Subject<UserModel>();
+  userEvents = new BehaviorSubject<UserModel | null>(null);
   authenticate(login: string, password: string): Observable<UserModel> {
     return this.http
       .post<UserModel>('https://ponyracer.ninja-squad.com/api/users/authentication', { login, password })

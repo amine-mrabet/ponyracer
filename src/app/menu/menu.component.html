@@ -5,12 +5,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navbar" class="navbar-collapse" [class.collapse]="navbarCollapsed">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/races">Races</a>
-        </li>
-      </ul>
       @if (user) {
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/races">Races</a>
+          </li>
+        </ul>
         <ul class="navbar-nav">
           <li class="navbar-text">
             <span id="current-user" class="me-2">
