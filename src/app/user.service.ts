@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { UserModel } from './models/user.model';
 
 @Injectable({
@@ -8,9 +8,18 @@ import { UserModel } from './models/user.model';
 })
 export class UserService {
   http = inject(HttpClient);
-  userEvents = new BehaviorSubject<UserModel | null>(null);
+  private user = signal<UserModel | null>(null);
+  readonly currentUser = this.user.asReadonly();
   constructor() {
     this.retrieveUser();
+    effect(() => {
+      // every time the user signal changes, we store it in local storage
+      if (this.user()) {
+        window.localStorage.setItem('rememberMe', JSON.stringify(this.user()));
+      } else {
+        window.localStorage.removeItem('rememberMe');
+      }
+    });
   }
   register(login: string, password: string, birthYear: number): Observable<UserModel> {
     const body = { login, password, birthYear };
@@ -20,21 +29,17 @@ export class UserService {
   authenticate(login: string, password: string): Observable<UserModel> {
     return this.http
       .post<UserModel>('https://ponyracer.ninja-squad.com/api/users/authentication', { login, password })
-      .pipe(tap((user: UserModel) => this.storeLoggedInUser(user)));
+      .pipe(tap((user: UserModel) => this.user.set(user)));
   }
-  private storeLoggedInUser(user: UserModel): void {
-    localStorage.setItem('rememberMe', JSON.stringify(user));
-    this.userEvents.next(user);
-  }
+
   retrieveUser(): void {
     const value = window.localStorage.getItem('rememberMe');
     if (value) {
       const user = JSON.parse(value) as UserModel;
-      this.userEvents.next(user);
+      this.user.set(user);
     }
   }
   logout(): void {
-    localStorage.removeItem('rememberMe');
-    this.userEvents.next(null);
+    this.user.set(null);
   }
 }

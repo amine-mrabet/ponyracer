@@ -1,8 +1,7 @@
-import { UserService } from './../user.service';
-import { Component, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserModel } from '../models/user.model';
+import { UserService } from './../user.service';
 
 @Component({
   selector: 'pr-home',
@@ -12,9 +11,9 @@ import { UserModel } from '../models/user.model';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  UserService = inject(UserService);
-  user: UserModel | null = null;
+  userService = inject(UserService);
+  user: Signal<UserModel | null>;
   constructor() {
-    this.UserService.userEvents.pipe(takeUntilDestroyed()).subscribe(user => (this.user = user));
+    this.user = this.userService.currentUser;
   }
 }

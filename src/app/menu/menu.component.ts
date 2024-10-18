@@ -1,9 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../user.service';
 import { DecimalPipe } from '@angular/common';
+import { Component, inject, Signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { UserModel } from '../models/user.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'pr-menu',
@@ -17,9 +16,9 @@ export class MenuComponent {
   router = inject(Router);
 
   navbarCollapsed: boolean = true;
-  user: UserModel | null = null;
+  user: Signal<UserModel | null>;
   constructor() {
-    this.userService.userEvents.pipe(takeUntilDestroyed()).subscribe(user => (this.user = user));
+    this.user = this.userService.currentUser;
   }
   toggleNavbar() {
     this.navbarCollapsed = !this.navbarCollapsed;

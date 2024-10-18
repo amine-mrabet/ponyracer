@@ -5,12 +5,14 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navbar" class="navbar-collapse" [class.collapse]="navbarCollapsed">
-      @if (user) {
-        <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto">
+        @if (user()) {
           <li class="nav-item">
             <a class="nav-link" routerLink="/races">Races</a>
           </li>
-        </ul>
+        }
+      </ul>
+      @if (user(); as user) {
         <ul class="navbar-nav">
           <li class="navbar-text">
             <span id="current-user" class="me-2">
@@ -20,7 +22,7 @@
             </span>
           </li>
           <li class="nav-item">
-            <button (click)="logout()" id="logout-link" type="button" class="btn nav-link" aria-label="Logout">
+            <button id="logout-link" type="button" class="btn nav-link" (click)="logout()" aria-label="Logout">
               <span class="fa fa-power-off"></span>
             </button>
           </li>
