@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { UserModel } from './models/user.model';
-
+import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,12 +23,12 @@ export class UserService {
   }
   register(login: string, password: string, birthYear: number): Observable<UserModel> {
     const body = { login, password, birthYear };
-    return this.http.post<UserModel>('https://ponyracer.ninja-squad.com/api/users', body);
+    return this.http.post<UserModel>(`${environment.baseUrl}/api/users`, body);
   }
 
   authenticate(login: string, password: string): Observable<UserModel> {
     return this.http
-      .post<UserModel>('https://ponyracer.ninja-squad.com/api/users/authentication', { login, password })
+      .post<UserModel>(`${environment.baseUrl}/api/users/authentication`, { login, password })
       .pipe(tap((user: UserModel) => this.user.set(user)));
   }
 
