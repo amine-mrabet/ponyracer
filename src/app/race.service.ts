@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, takeWhile } from 'rxjs';
 import { environment } from '../environments/environment';
 import { PonyWithPositionModel } from './models/pony.model';
 import { LiveRaceModel, RaceModel } from './models/race.model';
@@ -28,6 +28,9 @@ export class RaceService {
     return this.http.delete<void>(`${environment.baseUrl}/api/races/${raceId}/bets`);
   }
   live(raceId: number): Observable<Array<PonyWithPositionModel>> {
-    return this.wsService.connect<LiveRaceModel>(`/race/${raceId}`).pipe(map(liveRace => liveRace.ponies));
+    return this.wsService.connect<LiveRaceModel>(`/race/${raceId}`).pipe(
+      takeWhile(liveRace => liveRace.status !== 'FINISHED'),
+      map(liveRace => liveRace.ponies)
+    );
   }
 }
