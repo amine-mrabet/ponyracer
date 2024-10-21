@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RaceModel } from './models/race.model';
 import { environment } from '../environments/environment';
+import { RaceModel } from './models/race.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +13,12 @@ export class RaceService {
   list(): Observable<Array<RaceModel>> {
     const params = { status: 'PENDING' };
     return this.http.get<Array<RaceModel>>(`${environment.baseUrl}/api/races`, { params });
+  }
+  get(raceId: number): Observable<RaceModel> {
+    return this.http.get<RaceModel>(`${environment.baseUrl}/api/races/${raceId}`);
+  }
+
+  bet(raceId: number, ponyId: number): Observable<void> {
+    return this.http.post<void>(`${environment.baseUrl}/api/races/${raceId}/bets`, { ponyId });
   }
 }
