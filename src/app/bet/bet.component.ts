@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith, Subject, switchMap } from 'rxjs';
 import { PonyComponent } from '../pony/pony.component';
@@ -10,7 +10,7 @@ import { FromNowPipe } from '../from-now.pipe';
 
 @Component({
   standalone: true,
-  imports: [PonyComponent, FromNowPipe],
+  imports: [RouterLink, PonyComponent, FromNowPipe],
   templateUrl: './bet.component.html',
   styleUrl: './bet.component.css'
 })
