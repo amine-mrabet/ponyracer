@@ -6,7 +6,7 @@ import { PonyWithPositionModel } from '../models/pony.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PonyComponent } from '../pony/pony.component';
 import { FromNowPipe } from '../from-now.pipe';
-import { filter, switchMap, tap } from 'rxjs';
+import { bufferToggle, catchError, EMPTY, filter, groupBy, interval, map, mergeMap, Subject, switchMap, tap, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'pr-live',
@@ -21,6 +21,7 @@ export class LiveComponent {
   error = false;
   winners: Array<PonyWithPositionModel> = [];
   betWon: boolean | null = null;
+  clickSubject = new Subject<PonyWithPositionModel>();
   route = inject(ActivatedRoute);
   raceService = inject(RaceService);
 
@@ -46,5 +47,18 @@ export class LiveComponent {
           this.betWon = this.winners.some(pony => pony.id === this.raceModel!.betPonyId);
         }
       });
+    this.clickSubject
+      .pipe(
+        groupBy(pony => pony.id, { element: pony => pony.id }),
+        mergeMap(obs => obs.pipe(bufferToggle(obs, () => interval(1000)))),
+        filter(array => array.length >= 5),
+        throttleTime(1000),
+        map(array => array[0]),
+        switchMap(ponyId => this.raceService.boost(this.raceModel!.id, ponyId).pipe(catchError(() => EMPTY)))
+      )
+      .subscribe(() => {});
+  }
+  onClick(pony: PonyWithPositionModel): void {
+    this.clickSubject.next(pony);
   }
 }
